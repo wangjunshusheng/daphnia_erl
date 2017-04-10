@@ -1,0 +1,16 @@
+{application, daphnia, [
+    {description, ""},
+    {vsn, "2.3.0"},
+    {registered, []},
+    {mod, {daphnia_app, []}},
+    {applications, [
+        kernel,
+        stdlib,
+        gproc,
+        crypto,
+        lager
+    ]},
+    {env, [
+        {tasks_directory, "daphnia_tasks"}
+    ]}
+]}.
