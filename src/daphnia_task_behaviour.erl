@@ -10,7 +10,6 @@
 %% Args is the argument term to the task given by the client.
 %% A successful init must return {ok, State, Messages, Options}
 %% which will return ok to the client's start_task call
-%% {error, Reason}
 -callback init(Id :: term(), Args :: term()) ->
     {ok, State :: term()}
   | {ok, State :: term(), Msgs :: [term()]}

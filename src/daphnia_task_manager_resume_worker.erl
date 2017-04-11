@@ -1,3 +1,4 @@
+%% @private
 %%
 %% Manager spawns one of these on init, to go through all ids on disk
 %% and call resume on the id in the manager.

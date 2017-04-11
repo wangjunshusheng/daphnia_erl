@@ -1,3 +1,4 @@
+%% @private
 %%
 %% Interactions with underlying storage.
 %% This module is a bit hacky.

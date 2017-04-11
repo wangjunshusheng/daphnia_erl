@@ -1,3 +1,4 @@
+%% @private
 -module (daphnia_hex).
 
 -export ([bin_to_hex_string/1, list_to_hex/1]).

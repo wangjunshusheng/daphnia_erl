@@ -1,3 +1,4 @@
+%% @private
 %%
 %% Assumption: Only one task with the same ID ever exists.
 %% gproc ensures this, but it is important to note that gproc

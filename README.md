@@ -5,7 +5,7 @@ Persistent Task Manager Library
 
 ## Introduction
 
-Daphnia is a Task Manager.
+Daphnia is a Task Manager (library)
 
 Daphnia runs "tasks" which are erlang modules that implement the `daphnia_task_behaviour`.
 A task is made up of:

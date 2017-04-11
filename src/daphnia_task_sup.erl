@@ -1,3 +1,4 @@
+%% @private
 -module (daphnia_task_sup).
 -behaviour(supervisor).
 

@@ -1,3 +1,4 @@
+%% @private
 -module (daphnia_task_manager).
 -behaviour (gen_server).
 
