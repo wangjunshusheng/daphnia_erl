@@ -12,5 +12,10 @@
     ]},
     {env, [
         {tasks_directory, "daphnia_tasks"}
-    ]}
+    ]},
+    {pkg_name, "daphnia"},
+    {licenses, ["MIT"]},
+    {build_tools, ["rebar3"]},
+    {maintainers, ["Henrik Tudborg"]},
+    {links, [{"Github", "https://github.com/shopgun/daphnia_erl"}]}
 ]}.
