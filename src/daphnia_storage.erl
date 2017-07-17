@@ -18,6 +18,9 @@
 % cleanup
 -export ([delete_task/1]).
 
+% api for task code
+-export ([get_task_dir/1]).
+
 
 %% Write state to disk. State file is written in a side-file and moved in
 -spec write_state(term(), term(), queue:queue(), map()) -> ok | {error, any()}.
