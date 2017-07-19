@@ -168,7 +168,12 @@ handle_info('$task_progress', #state{calls=Calls0}=State0) ->
                     {noreply, State1}
             end;
          {{value, {notify, Info}}, PMailbox1} ->
-            handle_task_notify(Info, maybe_progress(State0#state{pmailbox=PMailbox1}))
+            case handle_task_notify(Info, State0#state{pmailbox=PMailbox1}) of
+                {noreply, State1} ->
+                    {noreply, maybe_progress(State1)};
+                Reply ->
+                    Reply
+            end
     end;
 handle_info(Info, State0) ->
     handle_task_notify(Info, State0).
