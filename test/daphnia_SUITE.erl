@@ -20,6 +20,7 @@ groups() ->
         {lifetime, [], [
             test_notify_nonexistent,
             test_task_normal_lifetime,
+            test_task_normal_self_calling_lifetime,
             test_task_cancel_lifetime,
             test_task_crash_lifetime,
             test_not_task_module,
@@ -56,6 +57,25 @@ test_task_normal_lifetime(_Config) ->
     % (note that if the task process get's to clean up before this code runs
     %  it will report it as not_found instead)
     {error, {gone, complete}} = daphnia:notify_task(my_normal_lifetime, foobar),
+    normal = recdown(MRef).
+
+test_task_normal_self_calling_lifetime(_Config) ->
+    ok = daphnia:start_task(my_normal_self_calling_lifetime, ?LIFETIME_TASK, []),
+    ok = daphnia:notify_task(my_normal_self_calling_lifetime, {ping, self()}),
+    % receive a pong
+    Pid = recpong(my_normal_self_calling_lifetime),
+    % monitor task process
+    MRef = monitor(process, Pid),
+    % ask task to call itself 5 times
+    ok = daphnia:notify_task(my_normal_self_calling_lifetime, {call_self, 5, self()}),
+    % see that it returns a message when done
+    Pid = recdone(my_normal_self_calling_lifetime),
+    % ask process to stop normal
+    ok = daphnia:notify_task(my_normal_self_calling_lifetime, complete),
+    % try to notify it again, expect it to tell is that it is gone
+    % (note that if the task process get's to clean up before this code runs
+    %  it will report it as not_found instead)
+    {error, {gone, complete}} = daphnia:notify_task(my_normal_self_calling_lifetime, foobar),
     normal = recdown(MRef).
 
 test_task_cancel_lifetime(_Config) ->
@@ -109,7 +129,7 @@ test_task_callable(_Config) ->
     % expect a gone,complete
     {error, {gone, complete}} = daphnia:call_task(my_callable_task, get),
     % wait a bit
-    timer:sleep(1),
+    ct:sleep(100),
     % now the process should have cleaned up, and be unknown, so not_found:
     {error, not_found} = daphnia:call_task(my_callable_task, get),
     ok.
@@ -168,6 +188,8 @@ test_send_to_pid_mix_notify(_Config) ->
 %% helpers:
 recpong(Id) ->
     receive {pong, Id, P} -> P after ?REC_TIMEOUT -> error(timeout) end.
+recdone(Id) ->
+    receive {done, Id, P} -> P after ?REC_TIMEOUT -> error(timeout) end.
 recval(Pid) ->
     receive {value, Pid, V} -> V after ?REC_TIMEOUT -> error(timeout) end.
 recval() ->
