@@ -6,7 +6,7 @@
   0},
  {<<"lager">>,
   {git,"https://github.com/erlang-lager/lager",
-       {ref,"cb1acd919c2c9b66632dc43830e590312d06cc2b"}},
+       {ref,"c694de05f7fe0d07f624b37273cab0b751ec25b5"}},
   0}]}.
 [
 {pkg_hash,[
